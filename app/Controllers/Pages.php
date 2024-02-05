@@ -8,10 +8,9 @@ class Pages extends BaseController
     {
         $data = [
             'title' => 'Halaman Home',
+            'nama' => 'Andini'
         ];
-        echo view('layout/header', $data);
-        echo view('pages/home');
-        echo view('layout/footer');
+        return view('pages/home', $data);
     }
 
     public function about()
@@ -19,8 +18,26 @@ class Pages extends BaseController
         $data = [
             'title' => 'Halaman About'
         ];
-        echo view('layout/header', $data);
-        echo view('pages/about');
-        echo view('layout/footer');
+        return view('pages/about', $data);
+    }
+
+    public function contact()
+    {
+        $data = [
+            'title' => 'Halaman Contact',
+            'alamat' => [
+                [
+                    'tipe' => 'Rumah',
+                    'alamat' => 'Denpasar Selatan',
+                    'kota' => 'Kota Denpasar'
+                ], 
+                [
+                    'tipe' => 'Kantor',
+                    'alamat' => 'Denpasar Timur',
+                    'kota' => 'Kota Denpasar'
+                ]
+            ]
+        ];
+        return view('pages/contact', $data);
     }
 }
