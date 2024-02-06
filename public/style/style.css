@@ -1,0 +1,12 @@
+.table > tbody > tr > td > img {
+    width: 80px;
+    align-items: center;
+}
+
+.table > thead > tr > th {
+    text-align: center;
+}
+
+.table > tbody > tr > * {
+    vertical-align: middle;
+}
