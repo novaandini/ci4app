@@ -14,21 +14,29 @@ class Buku extends BaseController
 
     public function index()
     {
-        $books = $this->bukuModel->findAll();
-
         $data = [
             'title' => 'Home | Books',
-            'books' => $books
+            'books' => $this->bukuModel->getBuku()
         ];
 
-    /* 
-        cara konek db tanpa model
-        $db = \Config\Database::connect();
-        $buku = $db->query("SELECT * FROM buku");
-        foreach ($buku->getResultArray() as $row) {
-            d($row);
-        } 
-    */
+        /* 
+            cara konek db tanpa model
+            $db = \Config\Database::connect();
+            $buku = $db->query("SELECT * FROM buku");
+            foreach ($buku->getResultArray() as $row) {
+                d($row);
+            } 
+        */
         return view('buku/index', $data);
+    }
+
+    public function detail($slug)
+    {
+        $data = [
+            'title' => 'Detail | Books',
+            'buku' => $this->bukuModel->getBuku($slug)
+        ];
+
+        return view('buku/detail', $data);
     }
 }
