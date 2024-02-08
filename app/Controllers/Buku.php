@@ -37,6 +37,36 @@ class Buku extends BaseController
             'buku' => $this->bukuModel->getBuku($slug)
         ];
 
+        // jika buku tidak ada di daftar
+        if (empty($data['buku'])) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Buku ' . $slug . ' tidak ditemukan dalam daftar.');
+        }
+
         return view('buku/detail', $data);
+    }
+
+    public function tambah()
+    {
+        $data = [
+            'title' => 'Add | Books',
+        ];
+
+        return view('buku/tambah', $data);
+    }
+
+    public function simpan()
+    {
+        $slug = url_title($this->request->getVar('title'), '-', true);
+
+        $this->bukuModel->save([
+            'judul' => $this->request->getVar('title'),
+            'penulis' => $this->request->getVar('writer'),
+            'slug' => $slug,
+            'sampul' => $this->request->getVar('cover')
+        ]);
+
+        session()->setFlashdata('pesan', 'Data buku telah ditambahkan.');
+
+        return redirect()->to('/buku');
     }
 }

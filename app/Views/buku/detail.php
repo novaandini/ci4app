@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <h1 class="my-2">Detail Buku</h1>
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">

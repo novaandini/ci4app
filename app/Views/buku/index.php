@@ -4,7 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="mt-2">Daftar Buku</h1>
+            <a href="/buku/tambah" class="btn btn-primary my-3">Tambah Data Buku</a>
+            <h1 class="mb-2">Daftar Buku</h1>
+            <?php if (session()->getFlashdata('pesan')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <?= session()->getFlashdata('pesan'); ?>
+                </div>
+            <?php endif; ?>
             <table class="table table-striped table-primary table-hover table-bordered">
                 <thead>
                     <tr>
