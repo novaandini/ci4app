@@ -77,13 +77,17 @@ class Buku extends BaseController
             return redirect()->to('buku/tambah')->withInput()->with('validation', $validation);
         };
 
+        $sampul = $this->request->getFile('cover');
+        $sampul->move('img');
+        $namaSampul = $sampul->getName();
+
         $slug = url_title($this->request->getVar('title'), '-', true);
 
         $this->bukuModel->save([
             'judul' => $this->request->getVar('title'),
             'penulis' => $this->request->getVar('writer'),
             'slug' => $slug,
-            'sampul' => $this->request->getVar('cover')
+            'sampul' => $namaSampul
         ]);
 
         session()->setFlashdata('pesan', 'Data buku telah ditambahkan.');
