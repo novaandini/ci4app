@@ -11,6 +11,8 @@ $routes->get('/pages/about', 'Pages::about');
 $routes->get('/pages/contact', 'Pages::contact');
 
 $routes->get('/buku', 'Buku::index');
+$routes->get('/buku/edit/(:any)', 'Buku::edit/$1');
+$routes->post('/buku/perbarui/(:num)', 'Buku::perbarui/$1');
 $routes->get('/buku/tambah', 'Buku::tambah');
 $routes->post('/buku/simpan', 'Buku::simpan');
 $routes->delete('/buku/(:num)', 'Buku::hapus/$1');

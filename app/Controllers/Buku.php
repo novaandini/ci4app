@@ -101,4 +101,62 @@ class Buku extends BaseController
         session()->setFlashdata('pesan', 'Data buku telah terhapus');
         return redirect()->to('/buku');
     }
+
+    public function edit($slug)
+    {
+        $data = [
+            'title' => 'Edit | Books',
+            'validation' => \Config\Services::validation(),
+            'buku' => $this->bukuModel->getBuku($slug)
+        ];
+        return view('buku/edit', $data);
+    }
+
+    public function perbarui($id)
+    {
+        // dd($this->request->getVar());
+        $judulLama = $this->bukuModel->getBuku($this->request->getVar('slug'));
+        if ($judulLama['judul'] == $this->request->getVar('title')) {
+            $ruleJudul = 'required';
+        } else {
+            $ruleJudul = 'required|is_unique[buku.judul]';
+        }
+
+        if (!$this->validate([
+            'title' => [
+                'rules' => $ruleJudul,
+                'errors' => [
+                    'required' => 'Judul wajib diisi',
+                    'is_unique' => 'Judul tersebut sudah terdaftar'
+                ]
+            ],
+            'writer' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama penulis harus diisi'
+                ]
+            ]
+        ])) {
+            $validation = \Config\Services::validation();
+            return redirect()->to('/buku/edit/' . $this->request->getVar('slug'))->withInput()->with('validation', $validation);
+        }
+
+        $sampul = $this->request->getFile('cover');
+        $sampul->move('img');
+        $namaSampul = $sampul->getName();
+
+        $slug = url_title($this->request->getVar('title'), '-', true);
+
+        $this->bukuModel->save([
+            'id' => $id,
+            'judul' => $this->request->getVar('title'),
+            'penulis' => $this->request->getVar('writer'),
+            'slug' => $slug,
+            'sampul' => $namaSampul
+        ]);
+
+        session()->setFlashdata('pesan', 'Data buku telah diubah.');
+
+        return redirect()->to('/buku');
+    }
 }
