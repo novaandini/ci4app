@@ -17,3 +17,8 @@ $routes->get('/buku/tambah', 'Buku::tambah');
 $routes->post('/buku/simpan', 'Buku::simpan');
 $routes->delete('/buku/(:num)', 'Buku::hapus/$1');
 $routes->get('/buku/(:any)', 'Buku::detail/$1');
+
+$routes->get('/penulis', 'Penulis::index');
+$routes->get('/penulis/$1', 'Penulis::show/$1');
+$routes->get('/penulis/create', 'Penulis::create');
+$routes->post('/penulis', 'Penulis::store');
